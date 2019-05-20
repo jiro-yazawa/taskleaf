@@ -1,0 +1,20 @@
+h1 ユーザー登録
+
+= form_with model: [:admin, @user], local: true do |form|
+  .form-group
+    = form.label :name, '名前'
+    = form.text_field :name, class: 'form-controll'
+  .form-group
+    = form.label :email, 'メールアドレス'
+    = form.text_field :email, class: 'form-controll'
+  .form-check
+    = form.label :admin, class: 'form-check-label' do
+      = form.check-box :admin, class: 'form-check-input'
+      | 管理者権限
+  .form-group
+    = form.label :password, 'パスワード'
+    = form.password_field :password, class: 'form-controll'
+  .form-group
+    = form.label :password_confirmation, 'パスワード(確認)'
+    = form.password_field :password_confirmation, class: 'form-controll'
+  = form.submit '登録する', class: 'btn btn-primary'
