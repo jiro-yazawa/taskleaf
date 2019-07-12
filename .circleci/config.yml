@@ -11,7 +11,5 @@ jobs:
         - develop
         - /feature\/.*/
     steps:
-      - run: pwd
-      - run: ls -la
-      - run: tree ./
+      - run: cd ~/taskleaf
       - run: bundle exec rspec 
