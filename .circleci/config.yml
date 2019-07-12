@@ -11,4 +11,4 @@ jobs:
         - develop
         - /feature\/.*/
     steps:
-      - run: rspec
+      - run: bundle exec rspec 
