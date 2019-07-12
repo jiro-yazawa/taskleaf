@@ -1,9 +1,14 @@
-version: 2.1
+varsion: 2.1
 
-orbs:
-    hello: circleci/hello-build@0.0.7 # uses the circleci/buildpack-deps Docker image
-
-workflows:
-    "Hello Workflow":
-        jobs:
-          - hello/hello-build
+jobs:
+  test:
+    docker:
+      - image: cyberious/rspec_puppet:5.5.14
+    working_directory: ~/taskleaf
+    branches:
+      only:
+        - master
+        - develop
+        - /feature\/.*/
+    steps:
+      - run: rspec
