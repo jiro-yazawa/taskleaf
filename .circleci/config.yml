@@ -11,7 +11,7 @@ jobs:
         environment:
           POSTGRES_USER: postgres
           POSTGRES_DB: app_test
-    working_directory: ~/repo
+    working_directory: ~/taskleaf
     steps:
       - checkout
       - restore_cache:
