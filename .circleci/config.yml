@@ -36,5 +36,5 @@ workflows:
   version: 2
   firat_rspec:
     jobs:
-      - rspec:
+      - rspec
 
