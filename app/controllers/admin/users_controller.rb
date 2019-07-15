@@ -57,27 +57,28 @@ class Admin::UsersController < ApplicationController
   end
 
   def send_email(user)
-    data = JSON.parse("{
-      'personalizations': [
+    data = JSON.parse('{
+      "personalizations": [
         {
-          'to': [
+          "to": [
             {
-              'email': '#{user.email}'
+              "email": "' + user.email + '"
             }
           ],
-          'subject': 'Hello World from the SendGrid Ruby Library!'
+          "subject": "Hello World from the SendGrid Ruby Library!"
         }
       ],
-      'from': {
-        'email': 'test@example.com'
+      "from": {
+        "email": "test@example.com"
       },
-      'content': [
+      "content": [
         {
-          'type': 'text/plain',
-          'value': 'Hello, Email!'
+          "type": "text/plain",
+          "value": "Hello, Email!"
         }
       ]
-    }")
+    }')
+
     sg = SendGrid::API.new(api_key: ENV['SENDGRID_API_KEY'])
     response = sg.client.mail._("send").post(request_body: data)
     puts response.status_code
