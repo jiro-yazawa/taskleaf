@@ -56,7 +56,7 @@ class Admin::UsersController < ApplicationController
   def send_email(user)
     from = Email.new(email: 'test@example.com')
     subject = 'Hello World from the SendGrid Ruby Library!'
-    to = Email.new(email: user.email)
+    to = Email.new(email: @user.email)
     content = Content.new(type: 'text/plain', value: 'Your email address is registered.')
     mail = Mail.new(from, subject, to, content)
 
