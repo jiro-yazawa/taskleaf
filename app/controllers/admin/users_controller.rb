@@ -74,7 +74,7 @@ class Admin::UsersController < ApplicationController
       "content": [
         {
           "type": "text/plain",
-          "value": " + login_path  + "
+          "value": "' + login_path  + '"
         }
       ]
     }')
