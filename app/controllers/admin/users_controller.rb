@@ -62,7 +62,7 @@ class Admin::UsersController < ApplicationController
         {
           'to': [
             {
-              'email': #{user.email}
+              'email': '#{user.email}'
             }
           ],
           'subject': 'Hello World from the SendGrid Ruby Library!'
