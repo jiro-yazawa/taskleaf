@@ -1,4 +1,7 @@
 class Admin::UsersController < ApplicationController
+  require 'sendgrid-ruby'
+  include SendGrid
+
   before_action :require_admin
 
   def index
@@ -54,13 +57,31 @@ class Admin::UsersController < ApplicationController
   end
 
   def send_email(user)
-    from = Email.new(email: 'test@example.com')
-    subject = 'Hello World from the SendGrid Ruby Library!'
-    to = Email.new(email: @user.email)
-    content = Content.new(type: 'text/plain', value: 'Your email address is registered.')
-    mail = Mail.new(from, subject, to, content)
-
+    data = JSON.parse("{
+      'personalizations': [
+        {
+          'to': [
+            {
+              'email': #{user.email}
+            }
+          ],
+          'subject': 'Hello World from the SendGrid Ruby Library!'
+        }
+      ],
+      'from': {
+        'email': 'test@example.com'
+      },
+      'content': [
+        {
+          'type': 'text/plain',
+          'value': 'Hello, Email!'
+        }
+      ]
+    }")
     sg = SendGrid::API.new(api_key: ENV['SENDGRID_API_KEY'])
-    response = sg.client.mail._('send').post(request_body: mail.to_json)
+    response = sg.client.mail._("send").post(request_body: data)
+    puts response.status_code
+    puts response.body
+    puts response.headers    
   end
 end
