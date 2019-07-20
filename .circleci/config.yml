@@ -14,14 +14,12 @@ jobs:
           RAILS_ENV: test
       - image: circleci/postgres:11-alpine-postgis-ram
         environment:
-          POSTGRES_USER: circleci-demo-ruby
-          POSTGRES_DB: rails_blog
-          POSTGRES_PASSWORD: ""
+          POSTGRES_USER: circleci
+          POSTGRES_DB: taskleaf
+          POSTGRES_PASSWORD: password
     working_directory: ~/taskleaf
     steps:
       - checkout
-      - run: pwd
-      - run: ls -la
       - run:
           name: setup bundler
           command: |
@@ -36,7 +34,6 @@ jobs:
             bundle install --jobs=4 --retry=3 --path vendor/bundle
       - run: bundle exec rake db:create
       - run: bundle exec rake db:schema:load
-      # Rspec
       - run:
-          name: Rspec
+          name: exec rspec
           command: bundle exec rspec
