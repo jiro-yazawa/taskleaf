@@ -10,7 +10,7 @@ jobs:
           BUNDLE_PATH: vendor/bundle
           BUNDLER_VERSION: 2.0.1
           PGHOST: 127.0.0.1
-          PGUSER: circleci-demo-ruby
+          PGUSER: circleci
           RAILS_ENV: test
       - image: circleci/postgres:11-alpine-postgis-ram
         environment:
