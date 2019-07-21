@@ -20,6 +20,9 @@ jobs:
     working_directory: ~/taskleaf
     steps:
       - checkout
+      - run: pwd
+      - run: ls -la
+      - run: git remote -v
       - run:
           name: setup bundler
           command: |
