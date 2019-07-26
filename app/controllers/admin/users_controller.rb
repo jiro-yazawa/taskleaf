@@ -1,4 +1,7 @@
 class Admin::UsersController < ApplicationController
+  require 'sendgrid-ruby'
+  include SendGrid
+
   before_action :require_admin
 
   def index
@@ -21,6 +24,7 @@ class Admin::UsersController < ApplicationController
     @user = User.new(user_params)
 
     if @user.save
+      send_email(@user)
       redirect_to admin_users_url, notice: "ユーザー「#{@user.name}」を登録しました。"
     else
       render :new
@@ -50,5 +54,35 @@ class Admin::UsersController < ApplicationController
 
   def require_admin
     redirect_to root_path unless current_user.admin?
+  end
+
+  def send_email(user)
+    data = JSON.parse('{
+      "personalizations": [
+        {
+          "to": [
+            {
+              "email": "' + user.email + '"
+            }
+          ],
+          "subject": "Hello World from the SendGrid Ruby Library!"
+        }
+      ],
+      "from": {
+        "email": "test@example.com"
+      },
+      "content": [
+        {
+          "type": "text/plain",
+          "value": "' + login_url + '"
+        }
+      ]
+    }')
+
+    sg = SendGrid::API.new(api_key: ENV['SENDGRID_API_KEY'])
+    response = sg.client.mail._("send").post(request_body: data)
+    puts response.status_code
+    puts response.body
+    puts response.headers    
   end
 end
