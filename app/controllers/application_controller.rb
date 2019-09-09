@@ -1,5 +1,5 @@
-require 'sendgrid-ruby'
-include SendGrid
+# require 'sendgrid-ruby'
+# include SendGrid
 
 class ApplicationController < ActionController::Base
   helper_method :current_user
