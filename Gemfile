@@ -69,3 +69,5 @@ gem 'rails_autolink'
 gem 'rspec-rails', '~> 3.7'
 gem 'ransack'
 # gem 'sendgrid-ruby'
+gem "nokogiri", ">= 1.10.4"
+
